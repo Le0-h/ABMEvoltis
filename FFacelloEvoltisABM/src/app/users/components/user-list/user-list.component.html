@@ -1,0 +1,75 @@
+<div class="card">
+    <h2>Gestión de Usuarios</h2>
+    
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    
+    <div class="flex justify-content-between mb-3">
+        <!--<button pButton type="button" label="Nuevo Usuario" icon="pi pi-plus" class="p-button p-component" (click)="onAddUser()"></button>-->
+        <p-button label="Nuevo Usuario" icon="pi pi-plus" styleClass="p-button-secondary" (onClick)="onAddUser()"></p-button>
+    </div>
+    
+    <p-table 
+      [value]="(users$ | async) || []" 
+      [loading]="(loading$ | async) || false"
+      styleClass="p-datatable-sm p-datatable-gridlines" 
+      [paginator]="true" 
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando {nom} a {apell} de {totalRecords} registros"
+      [rowsPerPageOptions]="[10,25,50]"
+      [globalFilterFields]="['nombre', 'apellido', 'email', 'rol']"
+    >
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h5 class="p-m-0">Listado de Usuarios</h5>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" placeholder="Buscar..." />
+          </span>
+        </div>
+      </ng-template>
+      
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+          <th pSortableColumn="apellido">Apellido <p-sortIcon field="apellido"></p-sortIcon></th>
+          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+          <th pSortableColumn="rol">Rol <p-sortIcon field="rol"></p-sortIcon></th>
+          <th pSortableColumn="activo">Estado <p-sortIcon field="activo"></p-sortIcon></th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{user.id}}</td>
+          <td>{{user.nombre}}</td>
+          <td>{{user.apellido}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.rol}}</td>
+          <td>
+            <span [class]="user.activo ? 'status-active' : 'status-inactive'">
+              {{user.activo ? 'Activo' : 'Inactivo'}}
+            </span>
+          </td>
+          <td>
+            <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info p-mr-2" 
+                    (click)="onViewUser(user)" pTooltip="Ver detalles"></button>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" 
+                    (click)="onEditUser(user)" pTooltip="Editar"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" 
+                    (click)="onDeleteUser(user)" pTooltip="Eliminar"></button>
+          </td>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" class="text-center">No se encontraron usuarios.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    
+  </div>

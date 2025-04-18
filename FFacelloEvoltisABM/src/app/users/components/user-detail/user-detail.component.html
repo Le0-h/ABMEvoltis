@@ -1,0 +1,71 @@
+<div class="card">
+    <h2>Detalles del Usuario</h2>
+    
+    <p-card *ngIf="(user$ | async) as user; else loading">
+      <ng-template pTemplate="header">
+        <div class="p-d-flex p-ai-center">
+          <div class="p-mr-3">
+            <span class="user-icon">
+              <i class="pi pi-user"></i>
+            </span>
+          </div>
+          <div>
+            <h3 class="p-m-0">{{ user.nombre }} {{ user.apellido }}</h3>
+            <p class="p-m-0">{{ user.rol }}</p>
+          </div>
+        </div>
+      </ng-template>
+      
+      <div class="p-grid">
+        <div class="p-col-12 p-md-6">
+          <h4>Información de Contacto</h4>
+          <div class="p-field">
+            <label>Email:</label>
+            <div>{{ user.email }}</div>
+          </div>
+          <div class="p-field">
+            <label>Teléfono:</label>
+            <div>{{ user.telefono || 'No especificado' }}</div>
+          </div>
+        </div>
+        
+        <div class="p-col-12 p-md-6">
+          <h4>Información de Cuenta</h4>
+          <div class="p-field">
+            <label>ID:</label>
+            <div>{{ user.id }}</div>
+          </div>
+          <div class="p-field">
+            <label>Estado:</label>
+            <div>
+              <span [class]="user.activo ? 'status-active' : 'status-inactive'">
+                {{ user.activo ? 'Activo' : 'Inactivo' }}
+              </span>
+            </div>
+          </div>
+          <div class="p-field">
+            <label>Fecha de Creación:</label>
+            <div>{{ user.fechaCreacion | date:'medium' }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <ng-template pTemplate="footer">
+        <div class="p-d-flex p-jc-end">
+          <button pButton type="button" label="Volver" icon="pi pi-arrow-left" class="p-button-secondary p-mr-2" (click)="onBack()"></button>
+          <button pButton type="button" label="Editar" icon="pi pi-pencil" (click)="onEdit()"></button>
+        </div>
+      </ng-template>
+    </p-card>
+    
+    <ng-template #loading>
+      <div *ngIf="(loading$ | async)" class="p-text-center">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+        <p>Cargando información del usuario...</p>
+      </div>
+      <div *ngIf="!(loading$ | async)" class="p-text-center">
+        <p>No se encontró información del usuario.</p>
+        <button pButton type="button" label="Volver a la lista" icon="pi pi-arrow-left" (click)="onBack()"></button>
+      </div>
+    </ng-template>
+  </div>

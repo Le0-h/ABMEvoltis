@@ -1,0 +1,55 @@
+<div class="card">
+    <h2>{{ isEditMode ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
+    
+    <p-toast></p-toast>
+    
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6">
+          <label for="nombre">Nombre *</label>
+          <input id="nombre" type="text" pInputText formControlName="nombre">
+          <small *ngIf="userForm.get('nombre')?.invalid && userForm.get('nombre')?.touched" class="p-error">
+            El nombre es requerido y debe tener al menos 2 caracteres.
+          </small>
+        </div>
+        
+        <div class="p-field p-col-12 p-md-6">
+          <label for="apellido">Apellido *</label>
+          <input id="apellido" type="text" pInputText formControlName="apellido">
+          <small *ngIf="userForm.get('apellido')?.invalid && userForm.get('apellido')?.touched" class="p-error">
+            El apellido es requerido y debe tener al menos 2 caracteres.
+          </small>
+        </div>
+        
+        <div class="p-field p-col-12 p-md-6">
+          <label for="email">Email *</label>
+          <input id="email" type="email" pInputText formControlName="email">
+          <small *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="p-error">
+            Por favor ingrese un email válido.
+          </small>
+        </div>
+        
+        <div class="p-field p-col-12 p-md-6">
+          <label for="telefono">Teléfono</label>
+          <input id="telefono" type="text" pInputText formControlName="telefono">
+        </div>
+        
+        <div class="p-field p-col-12 p-md-6">
+          <label for="rol">Rol *</label>
+          <p-dropdown id="rol" [options]="roles" formControlName="rol" placeholder="Seleccione un rol" optionLabel="label" optionValue="value"></p-dropdown>
+        </div>
+        
+        <div class="p-field p-col-12 p-md-6">
+          <label for="activo" class="p-checkbox-label">Estado</label>
+          <div class="p-mt-2">
+            <p-checkbox id="activo" [binary]="true" formControlName="activo" label="Activo"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-d-flex p-jc-end p-mt-4">
+        <button pButton type="button" label="Cancelar" class="p-button-secondary p-mr-2" (click)="onCancel()"></button>
+        <button pButton type="submit" label="Guardar" [loading]="(loading$ | async) || false"></button>
+      </div>
+    </form>
+  </div>
