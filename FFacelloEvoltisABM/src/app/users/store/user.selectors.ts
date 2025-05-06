@@ -1,8 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserState } from './user.reducer';
+import { UserFeatureState } from './index';
 
-export const selectUserState = createFeatureSelector<UserState>('users');
+// Primero seleccionamos el feature state completo
+export const selectUserFeature = createFeatureSelector<UserFeatureState>('users');
 
+// Luego seleccionamos el state específico de usuario
+export const selectUserState = createSelector(
+  selectUserFeature,
+  (state: UserFeatureState) => state.users
+);
+
+// Ahora seleccionamos el array de usuarios desde el estado
 export const selectAllUsers = createSelector(
   selectUserState,
   (state: UserState) => state.users
@@ -28,3 +37,5 @@ export const selectSelectedUser = createSelector(
   selectSelectedUserId,
   (users, selectedId) => users.find(user => user.id === selectedId) || null
 );
+
+

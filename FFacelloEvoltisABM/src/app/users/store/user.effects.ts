@@ -10,10 +10,26 @@ export class UserEffects {
   loadUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.loadUsers),
-      switchMap(() =>
-        this.userService.getUsers().pipe(
-          map(users => UserActions.loadUsersSuccess({ users })),
-          catchError(error => of(UserActions.loadUsersFailure({ error })))
+      mergeMap(() => this.userService.getUsers().pipe(
+        map(users => UserActions.loadUsersSuccess({ users })),
+        catchError(error => of(UserActions.loadUsersFailure({ error })))
+        )
+      )
+    )
+  );
+
+  SelectUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.loadUser),
+      switchMap(({ id }) =>
+        this.userService.getUserById(id).pipe(
+          map(user => {
+            if (!user) {
+              throw new Error('User not found');
+            }
+            return UserActions.loadUserSuccess({ user });
+          }),
+          catchError(error => of(UserActions.loadUserFailure({ error })))
         )
       )
     )
@@ -24,7 +40,12 @@ export class UserEffects {
       ofType(UserActions.createUser),
       mergeMap(({ user }) =>
         this.userService.createUser(user).pipe(
-          map(createdUser => UserActions.createUserSuccess({ user: createdUser })),
+          map(createdUser => {
+            if (!createdUser) {
+              throw new Error('Created user is null');
+            }
+            return UserActions.createUserSuccess({ user: createdUser });
+          }),
           catchError(error => of(UserActions.createUserFailure({ error })))
         )
       )
@@ -36,7 +57,12 @@ export class UserEffects {
       ofType(UserActions.updateUser),
       mergeMap(({ user }) =>
         this.userService.updateUser(user).pipe(
-          map(updatedUser => UserActions.updateUserSuccess({ user: updatedUser })),
+          map(updatedUser => {
+            if (!updatedUser) {
+              throw new Error('Updated user is null');
+            }
+            return UserActions.updateUserSuccess({ user: updatedUser });
+          }),
           catchError(error => of(UserActions.updateUserFailure({ error })))
         )
       )

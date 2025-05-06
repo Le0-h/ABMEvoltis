@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "V8trdkelDls=",
+  "dgSpecHash": "7d/3EMp1wRY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\Desarrollo\\Evoltis\\UserManagementApi\\UserManagementApi.csproj",
+  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\Desarrollo\\New folder\\ABMEvoltis\\ABMEvoltis\\UserManagementApi\\UserManagementApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Usuario\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

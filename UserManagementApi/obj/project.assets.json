@@ -2726,11 +2726,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\Desarrollo\\Evoltis\\UserManagementApi\\UserManagementApi.csproj",
+      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\Desarrollo\\New folder\\ABMEvoltis\\ABMEvoltis\\UserManagementApi\\UserManagementApi.csproj",
       "projectName": "UserManagementApi",
-      "projectPath": "C:\\Users\\Usuario\\Desktop\\Desarrollo\\Evoltis\\UserManagementApi\\UserManagementApi.csproj",
+      "projectPath": "C:\\Users\\Usuario\\Desktop\\Desarrollo\\New folder\\ABMEvoltis\\ABMEvoltis\\UserManagementApi\\UserManagementApi.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Desktop\\Desarrollo\\Evoltis\\UserManagementApi\\obj\\",
+      "outputPath": "C:\\Users\\Usuario\\Desktop\\Desarrollo\\New folder\\ABMEvoltis\\ABMEvoltis\\UserManagementApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config"
