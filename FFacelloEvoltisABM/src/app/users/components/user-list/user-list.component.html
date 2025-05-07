@@ -9,8 +9,10 @@
         <p-button label="Nuevo Usuario" icon="pi pi-plus" styleClass="p-button-secondary" (onClick)="onAddUser()"></p-button>
     </div>
     
+    <!-- [value]="(users$ | async) || []"  -->
     <p-table 
-      [value]="(users$ | async) || []" 
+      #dt
+      [value]="users"
       [loading]="(loading$ | async) || false"
       styleClass="p-datatable-sm p-datatable-gridlines" 
       [paginator]="true" 
@@ -19,20 +21,22 @@
       currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
       [rowsPerPageOptions]="[10,25,50]"
       [globalFilterFields]="['nombre', 'apellido', 'email', 'rol']"
+      [sortMode]="'multiple'"
+      dataKey="id"
     >
       <ng-template pTemplate="caption">
         <div class="p-d-flex p-ai-center p-jc-between">
           <h5 class="p-m-0">Listado de Usuarios</h5>
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input pInputText type="text" placeholder="Buscar..." />
+            <input pInputText type="text" (input)="applyFilterGlobal($event)" placeholder="Buscar..." />
           </span>
         </div>
       </ng-template>
       
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="id">ID <p-sortIcon field="id"/></th>
           <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
           <th pSortableColumn="apellido">Apellido <p-sortIcon field="apellido"></p-sortIcon></th>
           <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit,ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
@@ -9,6 +9,7 @@ import * as UserSelectors from '../../store/user.selectors';
 import * as fromUser from '../../store/user.selectors';
 import { selectAllUsers, selectUserLoading } from '../../store/user.selectors';
 import { loadUsers } from '../../store/user.actions';
+import { Table } from 'primeng/table';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -19,8 +20,11 @@ import { map } from 'rxjs/operators';
   providers: [MessageService, ConfirmationService]
 })
 export class UserListComponent implements OnInit {
+  @ViewChild('dt') table!: Table;
+
   users$: Observable<User[]> = this.store.select(selectAllUsers);
   loading$: Observable<boolean> = this.store.select(selectUserLoading);
+  users: User[] = [];
 
   constructor(
     private store: Store,
@@ -33,7 +37,9 @@ export class UserListComponent implements OnInit {
     this.store.dispatch(loadUsers());
 
     this.users$.subscribe(users => {
-      console.log('✅ USERS from selectAllUsers:', users); // Esto debe mostrar un array
+      // console.log('✅ USERS from selectAllUsers:', users);
+      this.users = [...users]; // copia local de usuarios para evitar problemas de referencia
+      // console.log('Usars:', users);
     });
   }
 
@@ -69,5 +75,10 @@ export class UserListComponent implements OnInit {
         });
       }
     });
+  }
+
+  applyFilterGlobal($event: Event): void {
+    const target = $event.target as HTMLInputElement;
+    this.table.filterGlobal(target.value, 'contains');
   }
 }
