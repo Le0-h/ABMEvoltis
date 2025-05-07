@@ -15,10 +15,6 @@ namespace UserManagementApi.Mappings
             CreateMap<UserDto, User>();
             CreateMap<CreateUserDto, User>();
             CreateMap<UpdateUserDto, User>();
-            
-            // Si tienes DTOs adicionales para crear/actualizar, agrégalos aquí
-            // CreateMap<CreateUserDto, User>();
-            // CreateMap<UpdateUserDto, User>();
         }
     }
 }
